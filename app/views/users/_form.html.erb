@@ -10,7 +10,9 @@
       </ul>
     </div>
   <% end %>
-
+  <%= form.text_field :username, type: "string"%>
+  <%= form.text_field :email, type: "string"%>
+  <%= form.text_field :password_digest, type: "string"%>
   <div>
     <%= form.submit %>
   </div>

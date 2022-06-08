@@ -13,8 +13,5 @@ class User < ApplicationRecord
         length: {maximum: 100},
         format: { with: EMAIL_FORMAT }
 
-    validates :password, 
-        presence: true, 
-        uniqueness: true, 
-        length: {minimum:8, maximum: 100}
+    has_secure_password
 end
