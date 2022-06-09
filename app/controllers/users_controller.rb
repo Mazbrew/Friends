@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
+
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /users/1 or /users/1.json
@@ -22,10 +23,11 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+    @user.email.downcase!
     respond_to do |format|
       if @user.save
-        format.html { redirect_to root_path, success: @user}
+        flash[:notice] = "Account created successfully, welcome #{@user.username}"
+        format.html { redirect_to root_path}
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -60,6 +62,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :email, :password_digest)
+      params.require(:user).permit(:username, :email, :password)
     end
 end

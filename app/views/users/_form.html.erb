@@ -3,7 +3,7 @@
 <%= form_with(model: user) do |form| %>
   <%= form.text_field :username, type: "string" , placeholder:"Username"%>
   <%= form.email_field :email, type: "string", placeholder:"Email"%>
-  <%= form.password_field :password_digest, type: "string", placeholder:"Password"%>
+  <%= form.password_field :password, type: "string", placeholder:"Password"%>
   <div>
     <%= form.submit "Sign Up" , class: "btn btn-primary"%>
   </div>
