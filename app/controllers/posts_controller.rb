@@ -1,13 +1,21 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post
+      .all
+      .order(id: :desc)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+  end
+
+  def userposts
+    @posts = Post
+      .where(user_id: session[:user_id])
+      .order(id: :desc)
   end
 
   # GET /posts/new
@@ -22,6 +30,8 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @post.user_id = session[:user_id]
+
     respond_to do |format|
       if @post.save
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }

@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   def show
   end
 
+  def userposts
+  end
+
   # GET /users/new
   def new
     @user = User.new
@@ -26,6 +29,7 @@ class UsersController < ApplicationController
     @user.email.downcase!
     respond_to do |format|
       if @user.save
+        session[:user_id] = @user.id
         flash[:notice] = "Account created successfully, welcome #{@user.username}"
         format.html { redirect_to root_path}
       else
